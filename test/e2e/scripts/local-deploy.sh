@@ -46,6 +46,8 @@ KSERVE_ODH_IMAGE="quay.io/opendatahub/kserve-controller:latest"
 LLMISVC_IMAGE="quay.io/opendatahub/odh-kserve-llmisvc-controller:odh-stable"
 
 ARCH="$(uname -m)"
+# Docker platform string (arm64 stays arm64, x86_64 becomes amd64)
+DOCKER_PLATFORM="linux/$(if [[ "$ARCH" == "x86_64" ]]; then echo amd64; else echo "$ARCH"; fi)"
 
 # Source deployment helpers for create_maas_db_config_secret
 # shellcheck source=../../../scripts/deployment-helpers.sh
@@ -169,6 +171,7 @@ if [[ "$ACTION" == "validate" ]]; then
   echo ""
   PASS=0; TOTAL=0
 
+  # All _check inputs are hardcoded strings defined below, not user input.
   _check() {
     TOTAL=$((TOTAL + 1))
     if eval "$2" &>/dev/null; then
@@ -308,7 +311,7 @@ if [[ "$ACTION" == "rebuild" ]]; then
     bbr|payload-processing)
       echo -e "${BOLD}Rebuilding BBR (payload-processing)${NC}"
       (cd "$BBR_REPO" && \
-        docker buildx build --platform linux/arm64 --load \
+        docker buildx build --platform "$DOCKER_PLATFORM" --load \
           -t "$BBR_IMAGE" . 2>&1 | tail -3)
       kind load docker-image "$BBR_IMAGE" --name "$KIND_CLUSTER_NAME"
       kubectl rollout restart deployment/payload-processing -n "$GATEWAY_NAMESPACE"
@@ -318,7 +321,7 @@ if [[ "$ACTION" == "rebuild" ]]; then
     maas-api|api)
       echo -e "${BOLD}Rebuilding maas-api${NC}"
       (cd "$PROJECT_ROOT/maas-api" && \
-        docker buildx build --platform linux/arm64 --load \
+        docker buildx build --platform "$DOCKER_PLATFORM" --load \
           -t "$MAAS_API_IMAGE" . 2>&1 | tail -3)
       kind load docker-image "$MAAS_API_IMAGE" --name "$KIND_CLUSTER_NAME"
       kubectl rollout restart deployment/maas-api -n "$MAAS_NAMESPACE"
@@ -328,7 +331,7 @@ if [[ "$ACTION" == "rebuild" ]]; then
     maas-controller|controller)
       echo -e "${BOLD}Rebuilding maas-controller${NC}"
       (cd "$PROJECT_ROOT" && \
-        docker buildx build --platform linux/arm64 --load \
+        docker buildx build --platform "$DOCKER_PLATFORM" --load \
           -f maas-controller/Dockerfile \
           -t "$MAAS_CONTROLLER_IMAGE" . 2>&1 | tail -3)
       kind load docker-image "$MAAS_CONTROLLER_IMAGE" --name "$KIND_CLUSTER_NAME"
@@ -341,20 +344,20 @@ if [[ "$ACTION" == "rebuild" ]]; then
       echo ""
       echo "  Building maas-api..."
       (cd "$PROJECT_ROOT/maas-api" && \
-        docker buildx build --platform linux/arm64 --load \
+        docker buildx build --platform "$DOCKER_PLATFORM" --load \
           -t "$MAAS_API_IMAGE" . 2>&1 | tail -3)
       kind load docker-image "$MAAS_API_IMAGE" --name "$KIND_CLUSTER_NAME"
 
       echo "  Building maas-controller..."
       (cd "$PROJECT_ROOT" && \
-        docker buildx build --platform linux/arm64 --load \
+        docker buildx build --platform "$DOCKER_PLATFORM" --load \
           -f maas-controller/Dockerfile \
           -t "$MAAS_CONTROLLER_IMAGE" . 2>&1 | tail -3)
       kind load docker-image "$MAAS_CONTROLLER_IMAGE" --name "$KIND_CLUSTER_NAME"
 
       echo "  Building BBR..."
       (cd "$BBR_REPO" && \
-        docker buildx build --platform linux/arm64 --load \
+        docker buildx build --platform "$DOCKER_PLATFORM" --load \
           -t "$BBR_IMAGE" . 2>&1 | tail -3)
       kind load docker-image "$BBR_IMAGE" --name "$KIND_CLUSTER_NAME"
 
@@ -892,7 +895,7 @@ else
   # Build arm64 image if needed
   if [[ "$ARCH" == "arm64" ]]; then
     echo "  Building llmisvc-controller for arm64..."
-    (cd "$KSERVE_CLONE" && docker buildx build --platform linux/arm64 --load \
+    (cd "$KSERVE_CLONE" && docker buildx build --platform "$DOCKER_PLATFORM" --load \
       -f llmisvc-controller.Dockerfile \
       -t "$LLMISVC_IMAGE" . 2>&1 | tail -3)
     kind load docker-image "$LLMISVC_IMAGE" --name "$KIND_CLUSTER_NAME"
@@ -1011,13 +1014,13 @@ if [[ "$ARCH" == "arm64" ]]; then
 
     echo "  Building maas-api..."
     (cd "$PROJECT_ROOT/maas-api" && \
-      docker buildx build --platform linux/arm64 --load \
+      docker buildx build --platform "$DOCKER_PLATFORM" --load \
         -t "$MAAS_API_IMAGE" . 2>&1 | tail -3)
     kind load docker-image "$MAAS_API_IMAGE" --name "$KIND_CLUSTER_NAME"
 
     echo "  Building maas-controller..."
     (cd "$PROJECT_ROOT" && \
-      docker buildx build --platform linux/arm64 --load \
+      docker buildx build --platform "$DOCKER_PLATFORM" --load \
         -f maas-controller/Dockerfile \
         -t "$MAAS_CONTROLLER_IMAGE" . 2>&1 | tail -3)
     kind load docker-image "$MAAS_CONTROLLER_IMAGE" --name "$KIND_CLUSTER_NAME"
@@ -1033,7 +1036,7 @@ if [[ "$ARCH" == "arm64" ]]; then
 
     echo "  Building payload-processing (BBR)..."
     (cd "$BBR_REPO" && \
-      docker buildx build --platform linux/arm64 --load \
+      docker buildx build --platform "$DOCKER_PLATFORM" --load \
         -t "$BBR_IMAGE" . 2>&1 | tail -3)
     kind load docker-image "$BBR_IMAGE" --name "$KIND_CLUSTER_NAME"
 

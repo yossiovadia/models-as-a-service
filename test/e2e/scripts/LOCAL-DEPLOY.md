@@ -5,7 +5,7 @@ One-click local deployment of the full MaaS + BBR platform on Kind (Mac only).
 ## Quick Start
 
 ```bash
-# Deploy everything (~8-10 minutes on first run, ~3 minutes with cached images)
+# Deploy everything (~8-10 minutes on first run, ~5 minutes with cached images)
 ./test/e2e/scripts/local-deploy.sh
 
 # Rebuild a single component after code changes (~30 seconds)
