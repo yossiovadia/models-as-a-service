@@ -202,10 +202,12 @@ if [[ "$ACTION" == "validate" ]]; then
   echo ""
   echo -e "${BOLD}Inference${NC}"
 
-  # Port-forward
+  # Port-forward (trap ensures cleanup on any exit, including set -e failures)
   pkill -f "port-forward.*19090" 2>/dev/null || true
   sleep 1
   kubectl port-forward -n "$GATEWAY_NAMESPACE" svc/maas-default-gateway-istio 19090:80 > /dev/null 2>&1 &
+  _PF_PID=$!
+  trap 'kill $_PF_PID 2>/dev/null || true' EXIT
   sleep 3
 
   # API key
