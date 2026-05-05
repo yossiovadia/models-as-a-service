@@ -11,10 +11,10 @@
         <link rel="canonical" href="https://opendatahub-io.github.io/models-as-a-service/dev/configuration-and-management/maas-controller-overview/">
       
       
-        <link rel="prev" href="../maas-model-kinds/">
+        <link rel="prev" href="../model-listing-flow/">
       
       
-        <link rel="next" href="../crd-annotations/">
+        <link rel="next" href="../../advanced-administration/observability/">
       
       
         
@@ -327,7 +327,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../user-guide/self-service-model-access/" class="md-tabs__link">
+        <a href="../../user-guide/api-key-management/" class="md-tabs__link">
           
   
   
@@ -796,6 +796,62 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/api-key-authentication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Key Authentication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/model-access-control/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model Access Control
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1099,7 +1155,7 @@
   <span class="md-ellipsis">
     
   
-    Model Setup (On Cluster)
+    Model Setup
   
 
     
@@ -1361,14 +1417,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../token-management/" class="md-nav__link">
+      <a href="../api-key-administration/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Token Management
+    API Key Administration
   
 
     
@@ -1445,14 +1501,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../subscription-known-issues/" class="md-nav__link">
+      <a href="../gateway-patterns/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Subscription limitations & known issues
+    Gateway Patterns
   
 
     
@@ -1545,7 +1601,7 @@
   <span class="md-ellipsis">
     
   
-    Model Setup (On Cluster)
+    Model Setup
   
 
     
@@ -1574,34 +1630,6 @@
     
   
     Model Listing Flow
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../maas-model-kinds/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    MaaS Model Kinds
   
 
     
@@ -1887,34 +1915,6 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../crd-annotations/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    CRD Annotations
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -1994,7 +1994,7 @@
   <span class="md-ellipsis">
     
   
-    Observability
+    Observability Dashboard
   
 
     
@@ -2023,34 +2023,6 @@
     
   
     Limitador Persistence
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../advanced-administration/subscription-cardinality/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Subscription Cardinality
   
 
     
@@ -2168,14 +2140,70 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guide/self-service-model-access/" class="md-nav__link">
+      <a href="../../user-guide/api-key-management/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Self Service Model Access
+    API Key Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/model-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model Discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/inference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inference
   
 
     
@@ -2548,6 +2576,34 @@
     
   
     MaaSSubscription
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/crds/tenant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tenant
   
 
     
@@ -3019,7 +3075,7 @@
 
     subgraph Install["Install steps"]
         Deploy["deploy.sh"]
-        Examples["Optional: install-examples.sh"]
+        Examples["Optional: kustomize build\ndocs/samples/maas-system/"]
     end
 
     Prereqs --&gt; Deploy
@@ -3027,7 +3083,7 @@
 <ul>
 <li><strong>Namespaces</strong>: MaaS API and controller default to <strong>opendatahub</strong> (configurable). The <strong>Tenant</strong> CR, MaaSAuthPolicy and MaaSSubscription default to <strong>models-as-a-service</strong> (configurable). MaaSModelRef must live in the <strong>same namespace</strong> as the model it references (e.g. <strong>llm</strong>).</li>
 <li><strong>Self-bootstrap</strong>: On startup, <code>maas-controller</code> creates a <code>default-tenant</code> CR in the <code>models-as-a-service</code> namespace if one does not exist. The Tenant reconciler then deploys <code>maas-api</code> and gateway policies via SSA.</li>
-<li><strong>Install</strong>: <code>./scripts/deploy.sh</code> installs the full stack including the controller. Optionally run <code>./scripts/install-examples.sh</code> for sample MaaSModelRef, MaaSAuthPolicy, and MaaSSubscription.</li>
+<li><strong>Install</strong>: <code>./scripts/deploy.sh</code> installs the full stack including the controller. Optionally run <code>kustomize build docs/samples/maas-system/ | kubectl apply -f -</code> for sample MaaSModelRef, MaaSAuthPolicy, and MaaSSubscription (see <code>docs/samples/maas-system/</code> for details).</li>
 </ul>
 <hr />
 <h2 id="9-authentication-current-behavior">9. Authentication (Current Behavior)</h2>
@@ -3109,7 +3165,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 21, 2026 16:12:19 UTC">April 21, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 5, 2026 13:29:44 UTC">May 5, 2026</span>
   </span>
 
     
